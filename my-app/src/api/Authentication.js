@@ -15,6 +15,11 @@ export const AuthLogin = async (info) => {
       cache: "no-store",
     })
       .then((resp) => {
+        const token = resp.headers.get("Authorization")?.split(" ")[1];
+        
+        if (token) {
+          localStorage.setItem("token", token);
+        }
         return resp.json();
       })
       .catch((error) => {
@@ -45,6 +50,10 @@ export const AuthRegister = async (info) => {
       cache: "no-store",
     })
       .then((resp) => {
+        const token = resp.headers.get("Authorization")?.split(" ")[1];
+        if (token) {
+          localStorage.setItem("token", token);
+        }
         return resp.json();
       })
       .catch((error) => {
@@ -67,7 +76,10 @@ export const AuthenticateUser = async () => {
   try {
     return await fetch(authenticateUserUrl, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
       credentials: "include",
     })
       .then((resp) => {
@@ -93,7 +105,10 @@ export const AuthLogout = async () => {
   try {
     return await fetch(logoutUrl, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${localStorage.getItem("token")}`,
+      },
       credentials: "include",
     })
       .then((resp) => {

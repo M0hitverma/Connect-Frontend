@@ -5,7 +5,8 @@ export const getPosts = async ({ page = 1 }) => {
   try {
     return await fetch(getPostUrl, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       next: {
         revalidate: 1000 * 60 * 60,
       },
@@ -34,7 +35,7 @@ export const likePostRequest = async ({ postId, isLiked }) => {
   try {
     return await fetch(likePostUrl, {
       method: `${isLiked ? "DELETE" : "PUT"}`,
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       credentials: "include",
     })
       .then((res) => {
@@ -60,7 +61,8 @@ export const commentPostRequest = async ({ postId, comment }) => {
   try {
     return await fetch(commentPostUrl, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+         "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       credentials: "include",
       body: JSON.stringify({ comment }),
     })
@@ -87,7 +89,7 @@ export const getUserPosts = async ({ page = 1 }) => {
   try {
     return await fetch(getUserPostUrl, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       next: {
         revalidate: 1000 * 60 * 60,
       },
@@ -116,7 +118,8 @@ export const getUserRequest = async () => {
   try {
     return await fetch(getUserUrl, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       credentials: "include",
     })
       .then((resp) => {
@@ -142,7 +145,7 @@ export const addPostRequest = async (post) => {
   try {
     return await fetch(addPostUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       body: JSON.stringify(post),
       credentials: "include",
     })
@@ -168,7 +171,7 @@ export const deletePostRequest = async (postId) => {
   try {
     return await fetch(deletePostUrl, {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}`, },
       credentials: "include",
     })
       .then((res) => res.json())
