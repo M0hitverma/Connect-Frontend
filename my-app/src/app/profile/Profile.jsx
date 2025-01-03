@@ -68,7 +68,7 @@ const router= useRouter();
           <UserPostContainer userId={user._id} />
         </div>
       ) : (
-        <div className="bg-red-300 p-5 mt-20 rounded-md border-2 border-black md:w-[50vw] w-[90vw]  mx-auto">
+        <div className="bg-red-300 p-5 mt-20 rounded-md border-2 border-black md:w-[30vw] w-[80vw]  mx-auto">
           <h1 className="text-white text-xl font-semibold">
             You need to login first to access this page.
           </h1>

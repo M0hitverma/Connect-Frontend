@@ -6,10 +6,12 @@ import { validateFrom } from "@/lib/validateFrom";
 import { UserDataContext } from "@/context/UserContext";
 import { AuthLogin } from "@/api/Authentication";
 import { IoIosWarning } from "react-icons/io";
-
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
 const Login = () => {
   const { setUser } = useContext(UserDataContext);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [info, setInfo] = useState({
     email: "",
     password: "",
@@ -37,13 +39,13 @@ const Login = () => {
     }
     const response = await AuthLogin(info);
     if (response.ok) {
-        setUser(response.user);
-        console.log(response.user);
+      setUser(response.user);
+      console.log(response.user);
       setInfo({
         email: "",
         password: "",
       });
-      
+
       return router.replace("/");
     }
     setError(response.message);
@@ -63,7 +65,7 @@ const Login = () => {
             placeholder="email@example.com"
             value={info.email}
             onChange={handleOnChange}
-            className="flex-1 text-sm font-semibold bg-gray-200   p-3 rounded-md  "
+            className="flex-1 text-sm font-semibold bg-[#eeeeee] tracking-normal  p-3 rounded-md  "
             onFocus={handleFocus}
           />
           {warning.email.length > 0 && (
@@ -75,16 +77,22 @@ const Login = () => {
 
         <div className="flex flex-col flex-1 relative">
           <label className="text-base font-semibold mb-2">Enter Password</label>
-          <input
-            id="password"
-            name="password"
-            maxLength={12}
-            value={info.password}
-            onChange={handleOnChange}
-            placeholder="password"
-            className="flex-1 text-sm font-semibold bg-gray-200 p-3 rounded-md"
-            onFocus={handleFocus}
-          />
+          <div className="flex flex-row bg-[#eeeeee] rounded-md">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              maxLength={12}
+              value={info.password}
+              onChange={handleOnChange}
+              placeholder="password"
+              className="flex-1 text-sm font-semibold bg-transparent p-3 outline-none rounded-md tracking-normal "
+              onFocus={handleFocus}
+            />
+            <div className=" text-2xl flex items-center px-2" onClick={()=>setShowPassword(!showPassword)}>
+              {showPassword ? <BiSolidHide /> : <BiSolidShow />}
+            </div>
+          </div>
           {warning.password.length > 0 && (
             <p className="text-sm text-red-400  font-medium absolute -bottom-5">
               *{warning.password[0]}

@@ -30,7 +30,7 @@ export default function Home() {
         ) : userData ? (
           <PostContainer  />
         ) : (
-          <div className="bg-red-300 p-5 mt-20 rounded-md border-2 border-black">
+          <div className="bg-red-300 md:w-[90%] w-[80%] mx-auto p-5 mt-20 rounded-md border-2 border-black">
              <h1 className="text-white text-xl font-semibold">You need to login first to access this page.</h1>
           <button 
            className="bg-black text-base font-semibold text-white py-2 px-4 rounded-md mt-5 "

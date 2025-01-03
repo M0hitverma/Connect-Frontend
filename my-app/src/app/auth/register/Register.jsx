@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import { validateFrom } from "@/lib/validateFrom";
 import { UserDataContext } from "@/context/UserContext";
 import { AuthRegister } from "@/api/Authentication";
-
+import { BiSolidHide } from "react-icons/bi";
+import { BiSolidShow } from "react-icons/bi";
 import { IoIosWarning } from "react-icons/io";
 const Register = ({ userType }) => {
   const { setUser } = useContext(UserDataContext);
-
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [info, setInfo] = useState({
     firstname: "",
@@ -75,7 +76,7 @@ const Register = ({ userType }) => {
               placeholder="first name"
               value={info.firstname}
               onChange={handleOnChange}
-              className="text-sm font-semibold bg-[#eeeeee] w-1/2   p-3 rounded-md  "
+              className="text-sm font-semibold bg-[#eeeeee] tracking-normal w-1/2   p-3 rounded-md  "
               onFocus={handleFocus}
             />
             <input
@@ -85,7 +86,7 @@ const Register = ({ userType }) => {
               placeholder="last name"
               value={info.lastname}
               onChange={handleOnChange}
-              className="text-sm font-semibold bg-[#eeeeee] w-1/2   p-3 rounded-md  "
+              className="text-sm font-semibold bg-[#eeeeee] tracking-normal  w-1/2   p-3 rounded-md  "
               onFocus={handleFocus}
             />
           </div>
@@ -107,7 +108,7 @@ const Register = ({ userType }) => {
             placeholder="email@example.com"
             value={info.email}
             onChange={handleOnChange}
-            className="flex-1 text-sm font-semibold bg-[#eeeeee]   p-3 rounded-md  "
+            className="flex-1 text-sm font-semibold bg-[#eeeeee] tracking-normal  p-3 rounded-md  "
             onFocus={handleFocus}
           />
           {warning.email.length > 0 && (
@@ -119,16 +120,22 @@ const Register = ({ userType }) => {
 
         <div className="flex flex-col flex-1 relative">
           <label className="text-base font-semibold mb-2">Enter Password</label>
+          <div className="flex flex-row bg-[#eeeeee] rounded-md">
           <input
             id="password"
             name="password"
+            type={showPassword ? "text" : "password"}
             maxLength={12}
             value={info.password}
             onChange={handleOnChange}
             placeholder="password"
-            className="flex-1 text-sm font-semibold bg-[#eeeeee] p-3 rounded-md"
+            className="flex-1 text-sm font-semibold bg-[#eeeeee] p-3 rounded-md tracking-normal "
             onFocus={handleFocus}
           />
+          <div className=" text-2xl flex items-center px-2" onClick={()=>setShowPassword(!showPassword)}>
+              {showPassword ? <BiSolidHide /> : <BiSolidShow />}
+            </div>
+          </div>
           {warning.password.length > 0 && (
             <p className="text-sm text-red-400  font-medium absolute -bottom-5">
               *{warning.password[0]}
