@@ -15,6 +15,7 @@ const Header = () => {
     const response = await AuthLogout();
     if (response.ok) {
       setShowMenu(false);
+      localStorage.removeItem('token');
       router.replace("/auth/login");
       setUser();
     }
